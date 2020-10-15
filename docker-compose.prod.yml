@@ -1,0 +1,13 @@
+version: '3'
+services:
+  redis:
+    build: ./bin/redis
+    container_name: default-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge

@@ -4,7 +4,7 @@ Clone este repositório em seu computador local. Execute o`docker-compose up -d`
 ```shell
 git clone https://github.com/p21sistemas/docker-default.git
 cd docker-default/
-docker-compose up -d
+docker-compose -f docker-compose.ENV.yml up -d
 ```
 
 ## phpMyAdmin
