@@ -1,0 +1,55 @@
+version: '3'
+services:
+  redis:
+    build: ./bin/redis
+    container_name: default-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - default
+  mysql:
+    build: ./bin/mysql
+    container_name: default-mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    volumes:
+      - '${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql'
+      - '${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    networks:
+      - default
+  phpmyadmin:
+    build: ./bin/phpmyadmin
+    container_name: default-phpmyadmin
+    restart: always
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+
+      PMA_PORT: 3306
+    ports:
+      - '8080:80'
+    volumes:
+      - /sessions
+    networks:
+      - default
+  blackfire:
+    container_name: default-blackfire
+    build:
+      context: ./bin/blackfire
+    ports: ["8707"]
+    restart: always
+    environment:
+      BLACKFIRE_SERVER_ID: "${BLACKFIRE_SERVER_ID}"
+      BLACKFIRE_SERVER_TOKEN: "${BLACKFIRE_SERVER_TOKEN}"
+      BLACKFIRE_CLIENT_ID: " ${BLACKFIRE_CLIENT_ID}"
+      BLACKFIRE_CLIENT_TOKEN:  "${BLACKFIRE_CLIENT_TOKEN}"
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge

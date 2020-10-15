@@ -1,1 +1,3 @@
-# docker-default
+# Executando
+
+`$ docker-compose up -d`
