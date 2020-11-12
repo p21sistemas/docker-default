@@ -1,4 +1,5 @@
 .env
+mailu.env
 .idea/
 data/mysql
 logs/*
