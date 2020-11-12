@@ -3,7 +3,9 @@ services:
   redis:
     build: ./bin/redis
     container_name: default-redis
-    restart: always
+    restart: ${RESTART}
+    volumes:
+      - "/data/mailu/redis:/data"
     ports:
       - '6379:6379'
     networks:
@@ -11,7 +13,7 @@ services:
   mysql:
     build: ./bin/mysql
     container_name: default-mysql
-    restart: always
+    restart: ${RESTART}
     ports:
       - '3306:3306'
     volumes:
@@ -24,7 +26,7 @@ services:
   phpmyadmin:
     build: ./bin/phpmyadmin
     container_name: default-phpmyadmin
-    restart: always
+    restart: ${RESTART}
     links:
       - mysql
     environment:
@@ -42,7 +44,7 @@ services:
     build:
       context: ./bin/blackfire
     ports: ["8707"]
-    restart: always
+    restart: ${RESTART}
     environment:
       BLACKFIRE_SERVER_ID: "${BLACKFIRE_SERVER_ID}"
       BLACKFIRE_SERVER_TOKEN: "${BLACKFIRE_SERVER_TOKEN}"

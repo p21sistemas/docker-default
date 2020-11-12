@@ -2,8 +2,10 @@ version: '3'
 services:
   redis:
     build: ./bin/redis
-    container_name: default-redis
-    restart: always
+    container_name: redis
+    restart: ${RESTART}
+    volumes:
+      - "/data/mailu/redis:/data"
     ports:
       - '6379:6379'
     networks:
