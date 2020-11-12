@@ -35,10 +35,13 @@ if [ $MAILU == 'y' ] || [ $MAILU == 'Y' ]; then
   read DOMAIN
   echo "##### Qual o host ? "
   read HOST
+  echo "##### Qual a porta ? "
+  read PORT
   cp sample.mailu.env mailu.env
   sed -i "s/ENV_SECRET_KEY/$SECRET/g" mailu.env
   sed -i "s/ENV_DOMAIN/$DOMAIN/g" mailu.env
   sed -i "s/ENV_HOSTNAME/$HOST/g" mailu.env
+  sed -i "s/ENV_PORT/$PORT/g" mailu.env
 
   docker-compose -f mailu.yml up -d --force
 fi
