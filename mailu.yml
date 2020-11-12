@@ -11,11 +11,13 @@ services:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}nginx:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
+    networks:
+      - default
     logging:
       driver: json-file
     ports:
-      - "191.252.62.182:${PORT_INSECURE}:80"
-      - "::1:${PORT_INSECURE}:80"
+      - 191.252.62.182:${PORT}:80
+      - ::1:${PORT}:80
       - "191.252.62.182:443:443"
       - "::1:443:443"
       - "191.252.62.182:25:25"
@@ -44,9 +46,12 @@ services:
       default:
         ipv4_address: 192.168.203.254
 
+
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.7}
     restart: always
+    networks:
+      - default
     env_file: mailu.env
     volumes:
       - "/data/mailu/data:/data"
@@ -57,6 +62,8 @@ services:
   imap:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}dovecot:${MAILU_VERSION:-1.7}
     restart: always
+    networks:
+      - default
     env_file: mailu.env
     volumes:
       - "/data/mailu/mail:/mail"
@@ -68,6 +75,8 @@ services:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}postfix:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
+    networks:
+      - default
     volumes:
       - "/data/mailu/overrides:/overrides"
     depends_on:
@@ -80,6 +89,8 @@ services:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}rspamd:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
+    networks:
+      - default
     volumes:
       - "/data/mailu/filter:/var/lib/rspamd"
       - "/data/mailu/dkim:/dkim"
@@ -95,6 +106,8 @@ services:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}clamav:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
+    networks:
+      - default
     volumes:
       - "/data/mailu/filter:/data"
     depends_on:
@@ -112,6 +125,8 @@ services:
   fetchmail:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.7}
     restart: always
+    networks:
+      - default
     env_file: mailu.env
     depends_on:
       - resolver
@@ -123,12 +138,12 @@ services:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}roundcube:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
+    networks:
+      - default
     volumes:
       - "/data/mailu/webmail:/data"
     depends_on:
       - imap
-
-
 networks:
   default:
     driver: bridge
