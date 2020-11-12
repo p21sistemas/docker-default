@@ -23,13 +23,13 @@ else
   sed -i "s/ENV_RESTART/no/g" .env
 fi
 
-docker-compose -f $FILENAME$YML up -d --force
+docker-compose -f $FILENAME$YML up -d --force --remove-orphans
 
 read -p "##### Deseja instalar o servidor de e-mail (y/N)?" MAILU
 MAILU=${MAILU:-'N'}
 
 if [ $MAILU == 'y' ] || [ $MAILU == 'Y' ]; then
-  echo "##### Qual a chave ? "
+  echo "##### Qual a chave ? (você pode gerar uma com $ pwgen 16) guarde sua chave"
   read SECRET
   echo "##### Qual o dominio ? "
   read DOMAIN

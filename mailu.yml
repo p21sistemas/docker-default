@@ -51,7 +51,7 @@ services:
     volumes:
       - "/data/mailu/data:/data"
       - "/data/mailu/dkim:/dkim"
-    depends_on:
+    external_links:
       - redis
 
   imap:

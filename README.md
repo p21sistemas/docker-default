@@ -1,6 +1,16 @@
 ## instalação
 Clone este repositório em seu computador local. 
-Execute o arquivo `./docker-compose.sh` e siga os passos.
+
+`shell
+git clone https://github.com/p21sistemas/docker-default.git container
+`
+
+Entre no repositório e execute o arquivo `./docker-compose.sh` e siga os passos.
+`shell
+cd container 
+./docker-compose.sh
+`
+
 ## phpMyAdmin
 
 phpMyAdmin está configurado para ser executado na porta 8080. Use as seguintes credenciais padrão.
