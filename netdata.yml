@@ -1,0 +1,20 @@
+version: '3'
+services:
+  netdata:
+    container_name: netdata
+    build:
+      context: ./bin/netdata
+    ports:
+      - '19999:19999'
+    volumes:
+      - '/etc/passwd:/host/etc/passwd:ro'
+      - '/etc/group:/host/etc/group:ro'
+      - '/proc:/host/proc:ro'
+      - '/sys:/host/sys:ro'
+      - '/etc/os-release:/host/etc/os-release:ro'
+    restart: unless-stopped
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
