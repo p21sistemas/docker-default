@@ -23,6 +23,15 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
       - default
+  php:
+    build: ./bin/code-quality/php
+    container_name: code_quality
+    restart: ${RESTART}
+    volumes:
+      - ${DOCUMENT_ROOT-./www}:/usr/share/apache2/www
+      - ./config/php/cli/php.ini:/usr/local/etc/php/cli/php.ini
+    networks:
+      - default
 networks:
   default:
     driver: bridge
