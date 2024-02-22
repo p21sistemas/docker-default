@@ -29,7 +29,7 @@ services:
     restart: ${RESTART}
     volumes:
       - ./www:/usr/share/apache2/www
-      - ./config/php/cli/php.ini:/usr/local/etc/php/cli/php.ini
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - default
 networks:
