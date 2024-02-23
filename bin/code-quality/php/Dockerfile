@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine3.12
+FROM php:7.4-cli-alpine3.12
 
 RUN apk add --update --no-cache --virtual .build-deps libxml2-dev
 
