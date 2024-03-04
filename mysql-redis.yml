@@ -23,6 +23,18 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
       - default
+  mysql8:
+    build: ./bin/mysql-8
+    container_name: default-mysql-8
+    restart: ${RESTART}
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_TCP_PORT: "3307"
+    ports:
+      - '3307:3306'
+    networks:
+      - default
 networks:
   default:
     driver: bridge
