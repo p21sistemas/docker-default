@@ -30,9 +30,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: root
-      MYSQL_TCP_PORT: "3306"
+      MYSQL_TCP_PORT: "3307"
     ports:
-      - '4406:3306'
+      - '3307:3306'
     networks:
       - default
 networks:
