@@ -1,5 +1,14 @@
 version: '3'
 services:
+  php:
+    build: ./bin/code-quality/php
+    container_name: code_quality
+    restart: ${RESTART}
+    volumes:
+      - ./www:/usr/share/apache2/www
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - default
   redis:
     build: ./bin/redis
     container_name: redis
@@ -21,6 +30,18 @@ services:
       - '${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    networks:
+      - default
+  mysql8:
+    build: ./bin/mysql-8
+    container_name: default-mysql-8
+    restart: ${RESTART}
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_TCP_PORT: "3307"
+    ports:
+      - '3307:3306'
     networks:
       - default
 networks:

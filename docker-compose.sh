@@ -1,7 +1,7 @@
 #!/bin/bash
 ENV=".env"
 YML=".yml"
-echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis e mysql)  3 - (mysql, redis, blackfire e phpmyadmin)? "
+echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis, mysql e code-quality) 3 - (mysql, redis, blackfire, phpmyadmin e code quality)? "
 read FILE
 
 read -p "##### Deseja iniciar todos os containers automaticamente (Y/n)?" AUTO
@@ -10,7 +10,7 @@ AUTO=${AUTO:-'Y'}
 if [ $FILE == '1' ]; then
     FILENAME='redis'
 elif [ $FILE == '2' ]; then
-   FILENAME='mysql-redis'
+   FILENAME='mysql-redis-code-quality'
 elif [ $FILE == '3' ]; then
    FILENAME='all'
 fi
@@ -23,7 +23,7 @@ else
   sed -i "s/ENV_RESTART/no/g" .env
 fi
 
-docker-compose -f $FILENAME$YML up -d --force --remove-orphans
+docker compose -f $FILENAME$YML up -d --force-recreate --remove-orphans
 
 read -p "##### Deseja instalar o servidor de e-mail (y/N)?" MAILU
 MAILU=${MAILU:-'N'}
