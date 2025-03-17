@@ -1,7 +1,7 @@
 #!/bin/bash
 ENV=".env"
 YML=".yml"
-echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis, mysql8 3 - (mysql8, redis, blackfire, phpmyadmin)? "
+echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis, mysql8) 3 - (mysql8, redis, blackfire, phpmyadmin)? "
 read FILE
 
 read -p "##### Deseja iniciar todos os containers automaticamente (Y/n)?" AUTO
