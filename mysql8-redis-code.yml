@@ -1,14 +1,5 @@
 version: '3'
 services:
-  php:
-    build: ./bin/code-quality/php
-    container_name: code_quality
-    restart: ${RESTART}
-    volumes:
-      - ./www:/usr/share/apache2/www
-      - ./config/php/php.ini:/usr/local/etc/php/php.ini
-    networks:
-      - default
   redis:
     build: ./bin/redis
     container_name: redis
