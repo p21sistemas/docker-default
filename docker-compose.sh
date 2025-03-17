@@ -23,7 +23,7 @@ else
   sed -i "s/ENV_RESTART/no/g" .env
 fi
 
-docker compose -f $FILENAME$YML up -d --force-recreate --remove-orphans
+docker-compose -f $FILENAME$YML up -d --force-recreate
 
 read -p "##### Deseja instalar o servidor de e-mail (y/N)?" MAILU
 MAILU=${MAILU:-'N'}
