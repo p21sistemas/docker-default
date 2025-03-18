@@ -11,8 +11,8 @@ services:
     networks:
       - default
   mysql:
-    build: ./bin/mysql-8
-    container_name: default-mysql-8
+    build: ./bin/mysql
+    container_name: default-mysql
     restart: ${RESTART}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
