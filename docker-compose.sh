@@ -1,7 +1,7 @@
 #!/bin/bash
 ENV=".env"
 YML=".yml"
-echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis, mysql e code-quality) 3 - (mysql, redis, blackfire, phpmyadmin e code quality)? "
+echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis, mysql) 3 - (mysql, redis, blackfire, phpmyadmin e code quality)? "
 read FILE
 
 read -p "##### Deseja iniciar todos os containers automaticamente (Y/n)?" AUTO
@@ -10,7 +10,7 @@ AUTO=${AUTO:-'Y'}
 if [ $FILE == '1' ]; then
     FILENAME='redis'
 elif [ $FILE == '2' ]; then
-   FILENAME='mysql-redis-code-quality'
+   FILENAME='mysql-redis'
 elif [ $FILE == '3' ]; then
    FILENAME='all'
 fi

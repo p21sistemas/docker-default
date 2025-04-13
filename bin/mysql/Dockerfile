@@ -1,7 +1,7 @@
-FROM mysql:5.7
+FROM mysql:8.0
 
-RUN echo "[mysqld]" >> /etc/mysql/my.cnf
-RUN echo "sql_mode = STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/mysql/my.cnf
-RUN echo "max_allowed_packet=9000M" >> /etc/mysql/my.cnf
-RUN echo "wait_timeout = 9999" >> /etc/mysql/my.cnf
-RUN echo "interactive_timeout = 9999" >> /etc/mysql/my.cnf
+RUN echo "[mysqld]" >> /etc/mysql/conf.d/my.cnf
+RUN echo "sql_mode = STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" >> /etc/mysql/conf.d/my.cnf
+RUN echo "default-authentication-plugin=mysql_native_password" >> /etc/mysql/conf.d/my.cnf
+RUN echo "character-set-server=utf8mb4" >> /etc/mysql/conf.d/my.cnf
+RUN echo "collation-server=utf8mb4_unicode_ci" >> /etc/mysql/conf.d/my.cnf
