@@ -3,3 +3,5 @@ mailu.env
 .idea/
 data/mysql
 logs/*
+data/mysql8
+data/minio/
