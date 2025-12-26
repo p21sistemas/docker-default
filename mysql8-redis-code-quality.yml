@@ -22,20 +22,13 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
       - default
-  minio:
-    build: ./bin/minio
-    container_name: minio
-    restart: unless-stopped
-    environment:
-      MINIO_ROOT_USER: admin
-      MINIO_ROOT_PASSWORD: 12345678
-      MINIO_BUCKET_NAME: meu-bucket
+  php:
+    build: ./bin/code-quality/php
+    container_name: code_quality
+    restart: ${RESTART}
     volumes:
-      - ./data/minio:/data
-    ports:
-      - "${MINIO_PORT1}:9000"
-      - "${MINIO_PORT2}:9001"
-    command: server /data --console-address ":9001"
+      - ./www:/usr/share/apache2/www
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - default
 networks:

@@ -6,18 +6,18 @@ services:
     volumes:
       - "/data/mailu/redis:/data"
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:6379'
     networks:
       - default
-  mysql:
-    build: ./bin/mysql
-    container_name: default-mysql
+  mysql8:
+    build: ./bin/mysql8
+    container_name: default-mysql8
     restart: ${RESTART}
     ports:
-      - '3306:3306'
+      - '${MYSQL_PORT}:3306'
     volumes:
-      - '${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql'
-      - '${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql'
+      - '${MYSQL_DATA_DIR8-./data/mysql8}:/var/lib/mysql'
+      - '${MYSQL_LOG_DIR8-./logs/mysql8}:/var/log/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
