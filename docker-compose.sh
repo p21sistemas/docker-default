@@ -71,7 +71,7 @@ else
   sed -i "s/ENV_RESTART/no/g" .env
 fi
 
-docker-compose -f $FILENAME$YML up -d --force --remove-orphans
+docker compose -f $FILENAME$YML up -d --force-recreate --remove-orphans
 
 read -p "##### Deseja instalar o servidor de e-mail (y/N)?" MAILU
 MAILU=${MAILU:-'N'}
@@ -92,5 +92,5 @@ if [ $MAILU == 'y' ] || [ $MAILU == 'Y' ]; then
   sed -i "s/ENV_HOSTNAME/$HOST/g" mailu.env
   sed -i "s/ENV_PORT/$PORT/g" mailu.env
 
-  docker-compose -f mailu.yml up -d --force
+  docker compose -f mailu.yml up -d --force-recreate
 fi

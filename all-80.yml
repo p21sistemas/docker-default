@@ -27,7 +27,7 @@ services:
     container_name: default-phpmyadmin
     restart: ${RESTART}
     links:
-      - mysql
+      - mysql8
     environment:
       PMA_HOST: mysql8
       PMA_PORT: ${MYSQL_PORT}
