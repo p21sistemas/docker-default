@@ -1,19 +1,67 @@
 #!/bin/bash
 ENV=".env"
 YML=".yml"
-echo "##### Qual arquivo deseja executar 1 - (redis) 2 - (redis e mysql)  3 - (mysql, redis, blackfire e phpmyadmin)? "
-read FILE
+
+echo "##### Qual arquivo deseja executar?"
+echo "1) redis"
+echo "2) redis + mysql5.7"
+echo "3) mysql5.7 + redis + blackfire + phpmyadmin"
+echo "4) mysql8.0 + redis + blackfire + phpmyadmin + minio"
+echo "5) mysql8.0 + redis + minio"
+echo "6) netdata"
+echo "7) redis + mysql5.7 + code quality"
+echo "8) redis + mysql8.0"
+echo "9) redis + mysql8.0 + code quality"
+echo
+
+while true; do
+  read -r -p "Selecione uma opção: " FILE
+  case "$FILE" in
+    1)
+      FILENAME='redis'
+      break
+      ;;
+    2)
+      FILENAME='mysql-redis'
+      break
+      ;;
+    3)
+      FILENAME='all'
+      break
+      ;;
+    4)
+      FILENAME='all-80'
+      break
+      ;;
+    5)
+      FILENAME='mysql8-redis-minio'
+      break
+      ;;
+    6)
+      FILENAME='netdata'
+      break
+      ;;
+    7)
+      FILENAME='mysql-redis-code-quality'
+      break
+      ;;
+    8)
+      FILENAME='mysql8-redis'
+      break
+      ;;
+    9)
+      FILENAME='mysql8-redis-code-quality'
+      break
+      ;;
+    *)
+      echo "Opção inválida. Tente novamente."
+      ;;
+  esac
+done
 
 read -p "##### Deseja iniciar todos os containers automaticamente (Y/n)?" AUTO
 AUTO=${AUTO:-'Y'}
 
-if [ $FILE == '1' ]; then
-    FILENAME='redis'
-elif [ $FILE == '2' ]; then
-   FILENAME='mysql-redis'
-elif [ $FILE == '3' ]; then
-   FILENAME='all'
-fi
 rm --f .env
 if [ $AUTO == 'y' ] || [ $AUTO == 'Y' ]; then
   cp $FILENAME$ENV .env
@@ -23,7 +71,7 @@ else
   sed -i "s/ENV_RESTART/no/g" .env
 fi
 
-docker-compose -f $FILENAME$YML up -d --force --remove-orphans
+docker compose -f $FILENAME$YML up -d --force-recreate --remove-orphans
 
 read -p "##### Deseja instalar o servidor de e-mail (y/N)?" MAILU
 MAILU=${MAILU:-'N'}
@@ -44,5 +92,5 @@ if [ $MAILU == 'y' ] || [ $MAILU == 'Y' ]; then
   sed -i "s/ENV_HOSTNAME/$HOST/g" mailu.env
   sed -i "s/ENV_PORT/$PORT/g" mailu.env
 
-  docker-compose -f mailu.yml up -d --force
+  docker compose -f mailu.yml up -d --force-recreate
 fi
