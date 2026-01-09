@@ -22,6 +22,19 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
       - default
+  mysql8-backup:
+    build: ./bin/mysql8
+    user: root
+    container_name: default-mysql8-backup
+    restart: ${RESTART}
+    depends_on:
+      - mysql8
+    volumes:
+      - './secrets/.my.cnf:/root/.my.cnf:ro'
+      - './backups:/backups'
+    entrypoint: ["sleep", "infinity"]
+    networks:
+      - default
   minio:
     build: ./bin/minio
     container_name: minio
