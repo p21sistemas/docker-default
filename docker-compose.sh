@@ -7,11 +7,12 @@ echo "1) redis"
 echo "2) redis + mysql5.7"
 echo "3) mysql5.7 + redis + blackfire + phpmyadmin"
 echo "4) mysql8.0 + redis + blackfire + phpmyadmin + minio"
-echo "5) mysql8.0 + redis + minio"
+echo "5) mysql8.0 + redis + minio + container para backup dos dados + aws cli"
 echo "6) netdata"
 echo "7) redis + mysql5.7 + code quality"
 echo "8) redis + mysql8.0"
 echo "9) redis + mysql8.0 + code quality"
+echo "10) aws cli"
 echo
 
 while true; do
@@ -34,7 +35,7 @@ while true; do
       break
       ;;
     5)
-      FILENAME='mysql8-redis-minio'
+      FILENAME='mysql8-redis-minio-backup-aws'
       break
       ;;
     6)
@@ -51,6 +52,10 @@ while true; do
       ;;
     9)
       FILENAME='mysql8-redis-code-quality'
+      break
+      ;;
+    10)
+      FILENAME='aws'
       break
       ;;
     *)

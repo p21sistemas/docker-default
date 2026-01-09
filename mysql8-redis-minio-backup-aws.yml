@@ -16,6 +16,7 @@ services:
     ports:
       - '${MYSQL_PORT}:3306'
     volumes:
+      - './secrets/.my.root.cnf:/root/.my.root.cnf:ro'
       - '${MYSQL_DATA_DIR8-./data/mysql8}:/var/lib/mysql'
       - '${MYSQL_LOG_DIR8-./logs/mysql8}:/var/log/mysql'
     environment:
@@ -49,6 +50,18 @@ services:
       - "${MINIO_PORT1}:9000"
       - "${MINIO_PORT2}:9001"
     command: server /data --console-address ":9001"
+    networks:
+      - default
+  aws-cli:
+    build:
+      context: bin/aws
+    entrypoint: []
+    command: sleep infinity
+    restart: unless-stopped
+    container_name: default-aws
+    volumes:
+      - ./config/aws:/root/.aws
+      - ./:/workspace
     networks:
       - default
 networks:

@@ -1,0 +1,11 @@
+services:
+  aws-cli:
+    build:
+      context: bin/aws
+    entrypoint: []
+    command: sleep infinity
+    restart: ${RESTART}
+    container_name: default-aws
+    volumes:
+      - ./config/aws:/root/.aws
+      - ./:/workspace

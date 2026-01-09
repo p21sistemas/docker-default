@@ -2,7 +2,7 @@
 set -e
 
 docker exec -i default-mysql8 \
-  mysql -u root -p <<'SQL'
+  mysql --defaults-file=/root/.my.root.cnf -u root <<'SQL'
 CREATE USER IF NOT EXISTS 'backup'@'%'
 IDENTIFIED BY 'backup';
 

@@ -23,6 +23,9 @@ password: root
 
 Ele vem com o Redis. Ele roda na porta padrão `6379`.
 
+## AWS CLI
+Para opções com o AWS CLI, basta executar `docker exec -i default-aws aws COMANDO` para interagir com o CLI. 
+
 ## Contribuindo
 
 bem-vindo para discutir bugs, recursos e idéias.
